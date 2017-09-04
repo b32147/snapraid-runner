@@ -104,6 +104,9 @@ def send_email(success):
         smtp["port"] = config["smtp"]["port"]
     if config["smtp"]["ssl"]:
         server = smtplib.SMTP_SSL(**smtp)
+    elif config["smtp"]["tls"]:
+        server = smtplib.SMTP(**smtp)
+        server.starttls()
     else:
         server = smtplib.SMTP(**smtp)
     if config["smtp"]["user"]:
